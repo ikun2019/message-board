@@ -26,13 +26,17 @@ module.exports = (sequelize, DataTypes) => {
     mail: {
       type: DataTypes.STRING,
       validate: {
-        msg: "メールアドレスは必須です"
+        notEmpty: {
+          msg: "メールアドレスは必須です"
+        }
       }
     },
     password: {
       type: DataTypes.STRING,
       validate: {
-        msg: "パスワードは必須です"
+        notEmpty: {
+          msg: "パスワードは必須です"
+        }
       }
     },
     age: {

@@ -3,11 +3,22 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var boardsRouter = require('./routes/board');
 
 var app = express();
+
+// セッションの利用
+var session_opt = {
+  secret: 'keyboard cat',
+  resabe: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 60 * 60 *1000 }
+}
+app.use(session(session_opt));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/boards', boardsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
